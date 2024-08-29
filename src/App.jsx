@@ -67,7 +67,10 @@ function App() {
   return (
     <section className="relative flex h-screen items-center p-4">
       <div className="mx-auto w-full max-w-xs space-y-5 rounded-2xl border-2 p-4 text-center sm:max-w-md sm:p-5">
-        <h2 className="mb-4 text-lg sm:text-2xl">Hey I'm {name}!</h2>
+        <h2 className="mb-4 text-lg sm:text-2xl">
+          Hey I'm
+          <span className="font-bold text-violet-500"> {name}</span>
+        </h2>
         <img
           src={image}
           className="mx-auto w-full max-w-xs rounded-xl border-2"
