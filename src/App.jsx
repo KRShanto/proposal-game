@@ -1,74 +1,63 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
+import { useState, useRef } from "react";
 import "./App.css";
-import qus from "../public/lovequs.gif";
-import accpect from "../public/accpect_love.gif";
-import final from "../public/simple crying.gif";
-import firstcry from "../public/emotinal.gif";
+import qusImage from "/lovequs.gif";
+import acceptImage from "/accpect_love.gif";
+import finalImage from "/simple crying.gif";
+import firstCryImage from "/emotinal.gif";
 
 function App() {
-  const [count, setCount] = useState(0);
-  const [message, setmessage] = useState("Tumi ki amke valobasho ??");
-  const [image, setimage] = useState(qus);
+  const [message, setMessage] = useState("Tumi ki amke valobasho ??");
+  const [image, setImage] = useState(qusImage);
+  const noButtonRef = useRef(null);
 
-  // let top = 100
-  // let left = 500
-
-  const handleYES = () => {
-    setmessage("hehe, jantam tmi amke valobasho...");
-    document.getElementById("NO").style.display = "none";
-    setimage(accpect);
+  const handleYes = () => {
+    setMessage("hehe, jantam tmi amke valobasho...");
+    if (noButtonRef.current) {
+      noButtonRef.current.style.display = "none";
+    }
+    setImage(acceptImage);
   };
 
-  const handleNO = () => {
-    if (message == "Tumi ki amke valobasho ??") {
-      setmessage("vebe bolteso to...");
-      setimage(firstcry);
-    }
-    if (message == "vebe bolteso to...") {
-      setmessage("R ekbar valo moto vebe nao..");
-      setimage(final);
-    }
-    if (message == "R ekbar valo moto vebe nao..") {
-      const randomTop = parseInt(Math.random() * 500);
-      const randomLeft = parseInt(Math.random() * 1000);
+  const handleNo = () => {
+    if (message === "Tumi ki amke valobasho ??") {
+      setMessage("vebe bolteso to...");
+      setImage(firstCryImage);
+    } else if (message === "vebe bolteso to...") {
+      setMessage("R ekbar valo moto vebe nao..");
+      setImage(finalImage);
+    } else if (message === "R ekbar valo moto vebe nao..") {
+      const randomTop = Math.random() * 500;
+      const randomLeft = Math.random() * 1000;
 
-      document.getElementById("NO").style.position = "absolute";
-      document.getElementById("NO").style.top = `${randomTop}px`;
-      document.getElementById("NO").style.left = `${randomLeft}px`;
+      if (noButtonRef.current) {
+        noButtonRef.current.style.position = "absolute";
+        noButtonRef.current.style.top = `${randomTop}px`;
+        noButtonRef.current.style.left = `${randomLeft}px`;
+      }
     }
   };
-
-  const handletopleft = () => {
-    const randomTop = parseInt(Math.random() * 500);
-    const randomLeft = parseInt(Math.random() * 1000);
-    // console.log(randomTop);
-    // top = 300
-    // left = 900
-    // settop(randomTop)
-    // setleft(randomLeft)
-  };
-
-  // console.log(top, left);
 
   return (
     <section className="relative flex h-screen items-center">
       <div className="mx-auto w-1/3 space-y-5 rounded-2xl border-2 p-5 text-center">
-        <img src={image} className="mx-auto w-96 rounded-xl border-2" alt="" />
+        <img
+          src={image}
+          className="mx-auto w-96 rounded-xl border-2"
+          alt="Emotion Image"
+        />
         <h1 className="text-3xl">{message}</h1>
         <div className="flex justify-center gap-5">
-          <button onClick={handleYES} className="btn btn-primary btn-lg">
+          <button onClick={handleYes} className="btn btn-primary btn-lg">
             Yes
           </button>
           <button
             id="NO"
-            onClick={handleNO}
-            className={`btn btn-primary btn-lg`}
+            ref={noButtonRef}
+            onClick={handleNo}
+            className="btn btn-primary btn-lg"
           >
             No
           </button>
-          {/* <button className='btn' onClick={handletopleft}>handle</button> */}
         </div>
       </div>
     </section>
