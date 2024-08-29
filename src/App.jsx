@@ -23,6 +23,7 @@ function App() {
       setName(username);
       setOtherName(other);
       setMessage(`Tumi ki amake valobasho ${other}??`);
+      document.title = `You love me ${other}??`;
     } else {
       navigate("/name-form");
     }
