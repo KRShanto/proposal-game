@@ -10,6 +10,7 @@ function App() {
   const [image, setImage] = useState(qusImage);
   const [name, setName] = useState("");
   const [otherName, setOtherName] = useState("");
+  const [showReload, setShowReload] = useState(false);
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
 
@@ -21,16 +22,17 @@ function App() {
     if (username && other) {
       setName(username);
       setOtherName(other);
-      setMessage(`Tumi ki amake valobasho ${otherName}??`);
+      setMessage(`Tumi ki amake valobasho ${other}??`);
     } else {
       navigate("/name-form");
     }
-  }, [searchParams, navigate, otherName]);
+  }, [searchParams, navigate]);
 
   const handleYes = () => {
     setMessage(`Hehe, ${otherName} jantam tmi amke valobasho...`);
     document.getElementById("NO").style.display = "none";
     setImage(acceptImage);
+    setShowReload(true); // Show the reload button when "Yes" is clicked
   };
 
   const handleNo = () => {
@@ -50,6 +52,10 @@ function App() {
     }
   };
 
+  const handleReload = () => {
+    window.location.reload();
+  };
+
   if (!name || !otherName) {
     return null; // Render nothing while redirecting
   }
@@ -57,7 +63,10 @@ function App() {
   return (
     <section className="relative flex h-screen items-center">
       <div className="mx-auto w-1/3 space-y-5 rounded-2xl border-2 p-5 text-center">
-        <h2 className="mb-4 text-2xl">Hey I'm {name}!</h2>
+        <h2 className="mb-4 text-2xl">
+          Hey I'm{" "}
+          <span className="text-3xl font-bold text-violet-500">{name}</span>!
+        </h2>
         <img
           src={image}
           className="mx-auto w-96 rounded-xl border-2"
@@ -72,6 +81,14 @@ function App() {
             No
           </button>
         </div>
+        {showReload && (
+          <button
+            onClick={handleReload}
+            className="btn btn-secondary btn-lg mt-5"
+          >
+            Reload
+          </button>
+        )}
       </div>
     </section>
   );
