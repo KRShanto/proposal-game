@@ -23,9 +23,10 @@ function App() {
       setName(username);
       setOtherName(other);
       setMessage(`Tumi ki amake valobasho ${other}??`);
-      document.title = `You love me ${other}??`;
+      document.title = `Question for ${username}`; // Set the title based on the username
     } else {
       navigate("/name-form");
+      document.title = "Enter Names"; // Title for the form route
     }
   }, [searchParams, navigate]);
 
@@ -44,8 +45,10 @@ function App() {
       setMessage(`${otherName}, R ekbar valo moto vebe nao..`);
       setImage(finalImage);
     } else if (message === `${otherName}, R ekbar valo moto vebe nao..`) {
-      const randomTop = Math.random() * 500;
-      const randomLeft = Math.random() * 1000;
+      const maxTop = window.innerHeight - 50; // Adjust this based on button height
+      const maxLeft = window.innerWidth - 100; // Adjust this based on button width
+      const randomTop = Math.random() * maxTop;
+      const randomLeft = Math.random() * maxLeft;
 
       document.getElementById("NO").style.position = "absolute";
       document.getElementById("NO").style.top = `${randomTop}px`;
@@ -62,19 +65,16 @@ function App() {
   }
 
   return (
-    <section className="relative flex h-screen items-center">
-      <div className="mx-auto w-1/3 space-y-5 rounded-2xl border-2 p-5 text-center">
-        <h2 className="mb-4 text-2xl">
-          Hey I'm{" "}
-          <span className="text-3xl font-bold text-violet-500">{name}</span>!
-        </h2>
+    <section className="relative flex h-screen items-center p-4">
+      <div className="mx-auto w-full max-w-xs space-y-5 rounded-2xl border-2 p-4 text-center sm:max-w-md sm:p-5">
+        <h2 className="mb-4 text-lg sm:text-2xl">Hey I'm {name}!</h2>
         <img
           src={image}
-          className="mx-auto w-96 rounded-xl border-2"
+          className="mx-auto w-full max-w-xs rounded-xl border-2"
           alt="Emotion Image"
         />
-        <h1 className="text-3xl">{message}</h1>
-        <div className="flex justify-center gap-5">
+        <h1 className="text-lg sm:text-3xl">{message}</h1>
+        <div className="flex flex-col justify-center gap-4 sm:flex-row">
           <button onClick={handleYes} className="btn btn-primary btn-lg">
             Yes
           </button>
@@ -85,7 +85,7 @@ function App() {
         {showReload && (
           <button
             onClick={handleReload}
-            className="btn btn-secondary btn-lg mt-5"
+            className="btn btn-secondary btn-lg mt-5 w-full"
           >
             Reload
           </button>
